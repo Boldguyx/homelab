@@ -1,0 +1,15 @@
+---
+- name: install vsftpd
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12  ## specify the python interpreter thats already in the machine to avoid the warning when running the playbook
+
+  become: true
+  tasks:
+    - name: Install vsftpd
+      apt:
+        name: vsftpd
+        state: present
+        update_cache: true
+        
+        
