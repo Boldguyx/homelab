@@ -1,0 +1,38 @@
+---
+- name: install curl & git
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12  ## specify the python interpreter thats already in the machine to avoid the warning when running the playbook
+    user_shell: /bin/zsh
+    
+  become: true
+  tasks:
+    - name: Install git
+      apt:
+        name: git
+        state: present
+        update_cache: true
+    
+    - name: Install curl
+      apt:
+        name: wget
+        state: present
+        update_cache: true
+    
+    - name: Install wget
+      apt:
+        name: wget
+        state: present
+        update_cache: true
+
+    - name: Install xclip
+      apt:
+        name: xclip
+        state: present
+        update_cache: true
+    
+    - name: Install zsh
+      apt:
+        name: zsh
+        state: present
+        update_cache: true

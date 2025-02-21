@@ -1,0 +1,41 @@
+---
+- name: install curl & git
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.12  ## specify the python interpreter thats already in the machine to avoid the warning when running the playbook
+    user_shell: /bin/zsh
+    
+  become: true
+  tasks:
+    - name: Change user shell to zsh
+      user:
+        name: "{{ ansible_user }}"
+        shell: "{{ user_shell }}"
+
+    - name: Install Oh My Zsh
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+      args:
+        creates: ~/.oh-my-zsh
+      become: false
+
+     - name: Install zsh-syntax-highlighting
+      git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+      become: false
+
+    - name: Replace plugins line in .zshrc
+      lineinfile:
+        path: /home/croot/.zshrc
+        regexp: '^plugins=\((.*)\)$'
+        line: 'plugins=(git sudo history zsh-syntax-highlighting)'
+        backup: yes    ##backup the original file
+      become: false
+
+    - name: Clone Powerlevel10k theme
+      git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: "/home/croot/.oh-my-zsh/custom/themes/powerlevel10k"
+        depth: 1
+      become: true
+      
