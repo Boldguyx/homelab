@@ -17,6 +17,12 @@
         path: /etc/vsftpd.conf
         regexp: '^listen=NO'
         line: 'listen=YES'
+
+    - name: Uncomment write_enable=YES in vsftpd.conf
+      lineinfile:
+        path: /etc/vsftpd.conf
+        regexp: '^#write_enable=YES'
+        line: 'write_enable=YES'
         
     - name: Restart vsftpd service
       service:
