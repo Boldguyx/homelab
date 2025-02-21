@@ -26,7 +26,7 @@
 
     - name: Replace plugins line in .zshrc
       lineinfile:
-        path: /home/croot/.zshrc
+        path: /home/croot/.zshrc  ## change the path to your user directory
         regexp: '^plugins=\((.*)\)$'
         line: 'plugins=(git sudo history zsh-syntax-highlighting)'
         backup: yes    ##backup the original file
