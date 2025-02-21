@@ -12,4 +12,14 @@
         state: present
         update_cache: true
         
+    - name: Change listen=NO to listen=YES in vsftpd.conf
+      lineinfile:
+        path: /etc/vsftpd.conf
+        regexp: '^listen=NO'
+        line: 'listen=YES'
+        
+    - name: Restart vsftpd service
+      service:
+        name: vsftpd
+        state: restarted
         
