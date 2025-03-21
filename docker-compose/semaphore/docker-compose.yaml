@@ -30,7 +30,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      matrix:
+      yournetwork:
         ipv4_address: 172.20.0.200
       
     image: semaphoreui/semaphore:latest
@@ -62,5 +62,5 @@ volumes:
   semaphore-mysql: # to use postgres, switch to: semaphore-postgres
 
 networks:
-  matrix:
+  yournetwork:
     external: true
